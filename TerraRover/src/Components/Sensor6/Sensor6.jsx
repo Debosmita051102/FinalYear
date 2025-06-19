@@ -319,9 +319,10 @@ const Sensor6 = () => {
   
   useEffect(() => {
     axios
-      .get("http://141.148.196.30:8080/api/v1/light-conditions/getAll") 
+      .get("http://144.24.116.230:8080/api/v1/ldr/getAll") 
       .then((response) => {
         setData(response.data); 
+        console.log(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -332,7 +333,7 @@ const Sensor6 = () => {
 
   
   const handleDelete = (id) => {
-    const deleteApiUrl = `http://141.148.196.30:8080/api/v1/light-conditions/${id}`; 
+    const deleteApiUrl = `http://144.24.116.230:8080/api/v1/ldr/delete${id}`; 
 
     axios
       .delete(deleteApiUrl)
@@ -369,8 +370,8 @@ const Sensor6 = () => {
               {data.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell data-label="Location">{item.location}</TableCell>
-                  <TableCell data-label="Date-Time">{item.dateTime}</TableCell>
-                  <TableCell data-label="Light Conditions">{item.lightCondition}</TableCell>
+                  <TableCell data-label="Date-Time">{item.date}</TableCell>
+                  <TableCell data-label="Light Conditions">{item.ldr}</TableCell>
                   <TableCell data-label="Actions">
                     <DeleteIcon onClick={() => handleDelete(item.id)} />
                   </TableCell>

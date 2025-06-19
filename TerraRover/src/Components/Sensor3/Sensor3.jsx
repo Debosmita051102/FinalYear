@@ -319,9 +319,10 @@ const Sensor3 = () => {
  
   useEffect(() => {
     axios
-      .get("http://141.148.196.30:8080/api/v1/atmospheric-pressure/getAll") 
+      .get("http://144.24.116.230:8080/api/v1/bmp/getAll") 
       .then((response) => {
         setData(response.data); 
+        console.log(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -332,7 +333,7 @@ const Sensor3 = () => {
 
   
   const handleDelete = (id) => {
-    const deleteApiUrl = `http://141.148.196.30:8080/api/v1/atmospheric-pressure/${id}`; 
+    const deleteApiUrl = `http://144.24.116.230:8080/api/v1/bmp/${id}`; 
 
     axios
       .delete(deleteApiUrl)
@@ -369,9 +370,9 @@ const Sensor3 = () => {
               {data.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell data-label="Location">{item.location}</TableCell>
-                  <TableCell data-label="Date-Time">{item.dateTime}</TableCell>
+                  <TableCell data-label="Date-Time">{item.date}</TableCell>
                   <TableCell data-label="Atmospheric Pressure">
-                    {item.atmosphericPressure}
+                    {item.pressure}
                   </TableCell>
                   <TableCell data-label="Actions">
                     <DeleteIcon onClick={() => handleDelete(item.id)} />

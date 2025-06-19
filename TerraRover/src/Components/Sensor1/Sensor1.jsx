@@ -326,9 +326,10 @@ const Sensor1 = () => {
   
   useEffect(() => {
     axios
-      .get("http://141.148.196.30:8080/api/v1/sensors/getAll")
+      .get("http://144.24.116.230:8080/api/v1/dht/getAll")
       .then((response) => {
         setData(response.data); 
+        console.log(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -339,7 +340,7 @@ const Sensor1 = () => {
 
   const handleDelete = (id) => {
     
-    const deleteApiUrl = `http://141.148.196.30:8080/api/v1/sensors/${id}`;
+    const deleteApiUrl = `http://144.24.116.230:8080/api/v1/dht/${id}`;
     axios
       .delete(deleteApiUrl)
       .then(() => {
@@ -376,7 +377,7 @@ const Sensor1 = () => {
               {data.map((item, i) => (
                 <TableRow key={item.id}>
                   <TableCell data-label="Location">{item.location}</TableCell>
-                  <TableCell data-label="Date-Time">{item.dateTime}</TableCell>
+                  <TableCell data-label="Date-Time">{item.date}</TableCell>
                   <TableCell data-label="Temperature">{item.temperature}</TableCell>
                   <TableCell data-label="Humidity">{item.humidity}</TableCell>
                   <TableCell data-label="Actions">

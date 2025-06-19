@@ -314,12 +314,12 @@ const Sensor2 = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
+
   useEffect(() => {
     axios
-      .get("http://141.148.196.30:8080/api/v1/water-levels/getAll") 
+      .get("http://144.24.116.230:8080/api/v1/water_levels/getAll")
       .then((response) => {
-        setData(response.data); 
+        setData(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -328,9 +328,9 @@ const Sensor2 = () => {
       });
   }, []);
 
-  
+
   const handleDelete = (id) => {
-    const deleteApiUrl = `http://141.148.196.30:8080/api/v1/water-levels/${id}`; 
+    const deleteApiUrl = `http://144.24.116.230:8080/api/v1/water_levels/${id}`;
 
     axios
       .delete(deleteApiUrl)
@@ -366,9 +366,25 @@ const Sensor2 = () => {
             <tbody>
               {data.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell data-label="Location">{item.location}</TableCell>
-                  <TableCell data-label="Date-Time">{item.dateTime}</TableCell>
-                  <TableCell data-label="Water Level">{item.waterLevel}</TableCell>
+                  <TableCell data-label="Location">
+                    {item.location
+                      .split(',')
+                      .map((coord, idx) =>
+                        idx === 0 ? `Latitude: ${coord.trim()}` : `Longitude: ${coord.trim()}`
+                      )
+                      .join(', ')}
+                  </TableCell>
+                  <TableCell data-label="Date-Time">
+                    {new Date(item.date).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                  </TableCell>
+                  <TableCell data-label="Water Level">{item.waterLevel} m</TableCell>
                   <TableCell data-label="Actions">
                     <DeleteIcon onClick={() => handleDelete(item.id)} />
                   </TableCell>
@@ -382,6 +398,6 @@ const Sensor2 = () => {
       </TableContainer>
     </PageContainer>
   );
-};
+}
 
-export default Sensor2;
+  export default Sensor2;
