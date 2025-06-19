@@ -8,8 +8,7 @@ export const PageContainer = styled.div`
   align-items: center;
   gap: 1rem;
   min-width: 100vw;
-  height: 100vh;
-  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  height: 70vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -26,6 +25,7 @@ export const Card = styled.div`
   background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color:black
   overflow: hidden;
   position: relative;
   transition: transform 0.3s;

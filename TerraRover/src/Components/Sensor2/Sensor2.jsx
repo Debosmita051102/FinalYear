@@ -208,8 +208,7 @@ const PageContainer = styled.div`
   align-items: center;
   gap: 1rem;
   width: 100vw;
-  height: 100vh;
-  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  height: 70vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -317,7 +316,7 @@ const Sensor2 = () => {
 
   useEffect(() => {
     axios
-      .get("http://144.24.116.230:8080/api/v1/water_levels/getAll")
+      .get("http://144.24.116.230:8080/api/v1/water_level/getAll")
       .then((response) => {
         setData(response.data);
         setLoading(false);
@@ -330,7 +329,7 @@ const Sensor2 = () => {
 
 
   const handleDelete = (id) => {
-    const deleteApiUrl = `http://144.24.116.230:8080/api/v1/water_levels/${id}`;
+    const deleteApiUrl = `http://144.24.116.230:8080/api/v1/water_level/delete/${id}`;
 
     axios
       .delete(deleteApiUrl)
@@ -384,7 +383,7 @@ const Sensor2 = () => {
                       hour12: true,
                     })}
                   </TableCell>
-                  <TableCell data-label="Water Level">{item.waterLevel} m</TableCell>
+                  <TableCell data-label="Water Level">{item.water_level} cm</TableCell>
                   <TableCell data-label="Actions">
                     <DeleteIcon onClick={() => handleDelete(item.id)} />
                   </TableCell>

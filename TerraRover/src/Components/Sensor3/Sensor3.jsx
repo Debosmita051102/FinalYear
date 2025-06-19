@@ -210,8 +210,7 @@ const PageContainer = styled.div`
   align-items: center;
   gap: 1rem;
   width: 100vw;
-  height: 100vh;
-  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  height: 70vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -353,40 +352,50 @@ const Sensor3 = () => {
   }
 
   return (
-    <PageContainer>
-      <TableContainer>
-        <Title>Atmospheric Pressure Data</Title>
-        {data.length ? (
-          <DataTable>
-            <thead>
-              <TableRow>
-                <TableHeader>Location</TableHeader>
-                <TableHeader>Date-Time</TableHeader>
-                <TableHeader>Atmospheric Pressure</TableHeader>
-                <TableHeader>Actions</TableHeader>
+  <PageContainer>
+    <TableContainer>
+      <Title>Atmospheric Pressure Data</Title>
+      {data.length ? (
+        <DataTable>
+          <thead>
+            <TableRow>
+              <TableHeader>Location</TableHeader>
+              <TableHeader>Date-Time</TableHeader>
+              <TableHeader>Atmospheric Pressure</TableHeader>
+              <TableHeader>Actions</TableHeader>
+            </TableRow>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell data-label="Location">{item.location}</TableCell>
+                <TableCell data-label="Date-Time">
+                  {new Date(item.date).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true,
+                  })}
+                </TableCell>
+                <TableCell data-label="Atmospheric Pressure">
+                  {item.pressure} hPa
+                </TableCell>
+                <TableCell data-label="Actions">
+                  <DeleteIcon onClick={() => handleDelete(item.id)} />
+                </TableCell>
               </TableRow>
-            </thead>
-            <tbody>
-              {data.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell data-label="Location">{item.location}</TableCell>
-                  <TableCell data-label="Date-Time">{item.date}</TableCell>
-                  <TableCell data-label="Atmospheric Pressure">
-                    {item.pressure}
-                  </TableCell>
-                  <TableCell data-label="Actions">
-                    <DeleteIcon onClick={() => handleDelete(item.id)} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </tbody>
-          </DataTable>
-        ) : (
-          <p style={{ textAlign: "center" }}>No data available</p>
-        )}
-      </TableContainer>
-    </PageContainer>
-  );
+            ))}
+          </tbody>
+        </DataTable>
+      ) : (
+        <p style={{ textAlign: "center" }}>No data available</p>
+      )}
+    </TableContainer>
+  </PageContainer>
+);
 };
 
 export default Sensor3;

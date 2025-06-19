@@ -10,7 +10,7 @@ const PageContainer = styled.div`
   align-items: center;
   gap: 1rem;
   width: 100vw;
-  height: 100vh;
+  height: 70vh;
   background-image: linear-gradient(to right, #00c6ff, #0072ff);
   margin: 0;
   padding: 0;
@@ -158,38 +158,48 @@ const Sensor4 = () => {
   };
 
   return (
-    <PageContainer>
-      <TableContainer>
-        <Title>CO2 and NH3 Sensor Data</Title>
-        {data.length ? (
-          <DataTable>
-            <thead>
-              <TableRow>
-                <TableHeader>Date-Time</TableHeader>
-                <TableHeader>CO2 Level</TableHeader>
-                <TableHeader>NH3 Level</TableHeader>
-                <TableHeader>Actions</TableHeader>
+  <PageContainer>
+    <TableContainer>
+      <Title>CO2 and NH3 Sensor Data</Title>
+      {data.length ? (
+        <DataTable>
+          <thead>
+            <TableRow>
+              <TableHeader>Date-Time</TableHeader>
+              <TableHeader>CO2 Level</TableHeader>
+              <TableHeader>NH3 Level</TableHeader>
+              <TableHeader>Actions</TableHeader>
+            </TableRow>
+          </thead>
+          <tbody>
+            {data.map((item, i) => (
+              <TableRow key={i}>
+                <TableCell data-label="Date-Time">
+                  {new Date(item.dateTime).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true,
+                  })}
+                </TableCell>
+                <TableCell data-label="CO2 Level">{item.co2Level} ppm</TableCell>
+                <TableCell data-label="NH3 Level">{item.nh3Level} ppm</TableCell>
+                <TableCell data-label="Actions">
+                  <DeleteIcon onClick={() => handleDelete(i)} />
+                </TableCell>
               </TableRow>
-            </thead>
-            <tbody>
-              {data.map((item, i) => (
-                <TableRow key={i}>
-                  <TableCell data-label="Date-Time">{item.dateTime}</TableCell>
-                  <TableCell data-label="CO2 Level">{item.co2Level}</TableCell>
-                  <TableCell data-label="NH3 Level">{item.nh3Level}</TableCell>
-                  <TableCell data-label="Actions">
-                    <DeleteIcon onClick={() => handleDelete(i)} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </tbody>
-          </DataTable>
-        ) : (
-          <p style={{ textAlign: "center" }}>No data available</p>
-        )}
-      </TableContainer>
-    </PageContainer>
-  );
+            ))}
+          </tbody>
+        </DataTable>
+      ) : (
+        <p style={{ textAlign: "center" }}>No data available</p>
+      )}
+    </TableContainer>
+  </PageContainer>
+);
 };
 
 export default Sensor4;
